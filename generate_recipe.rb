@@ -58,7 +58,10 @@ appimage.version = '16.04.1'
 appimage.external = 'libarchive,https://github.com/libarchive/libarchive,true,""'
 appimage.cmake = true
 appimage.wayland = false
-appimage.boost = false    
+appimage.boost = false
+#Run gatherdeps local to get dep lists. TO_DO: run on jenkins.
+appimage.dependencies = 'bzip2-devel liblzma-devel xz-devel media-player-info.noarch libfam-devel'
+appimage.frameworks = 'attica extra-cmake-modules karchive kauth kcodecs kconfig kconfigwidgets kcoreaddons kcrash kdoctools ki18n knewstuff kservice kwidgetsaddons kxmlgui kguiaddons kcompletion kiconthemes kio kitemviews ktextwidgets kdbusaddons kglobalaccel kwindowsystem'
 appimage.apps = [Recipe::App.new("#{appimage.name}")]
 File.write('Recipe', appimage.render)
     
