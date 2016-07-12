@@ -210,7 +210,8 @@ build_framework extra-cmake-modules
 #Cmake is too old on centos6.... so does this mean no sound for KDE apps? blech.
 #build_framework phonon -DPHONON_BUILD_PHONON4QT5=ON
 
-for FRAMEWORK in <%= frameworks %>; do
+for FRAMEWORK in <%= frameworks %>;
+do
   build_framework $FRAMEWORK
 done
 build_framework breeze-icons -DBINARY_ICONS_RESOURCE=1

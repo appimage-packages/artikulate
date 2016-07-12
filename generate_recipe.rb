@@ -48,12 +48,4 @@ class Recipe
         ERB.new(File.read('Recipe.erb')).result(binding)
     end
     
-    def gather_deps
-        
-        kf5_map = YAML.load_file('frameworks.yaml')
-        kf5_map.each do |framework|
-            puts framework
-        end
-        
-    end
 end
