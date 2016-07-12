@@ -97,6 +97,7 @@ kcrash:
   distro_packages:
   kf5_deps:
    - extra-cmake-modules
+   - kwindowsystem
 kdoctools:
   distro_packages:
   kf5_deps:
