@@ -35,6 +35,7 @@ class Recipe
     attr_accessor :name
     attr_accessor :proper_name
     attr_accessor :dependencies
+    attr_accessor :cmake
     attr_accessor :wayland
     attr_accessor :boost
     attr_accessor :version
