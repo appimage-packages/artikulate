@@ -1,0 +1,432 @@
+extra-cmake-modules:
+  distro_packages:
+  kf5_deps: 
+kcoreaddons: 
+  distro_packages: 
+   - libfam-devel
+  kf5_deps: 
+   - extra-cmake-modules
+attica:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+dbusaddons: 
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+kdnssd:
+  distro_packages:
+   - libavahi-common-devel
+  kf5_deps:
+   - extra-cmake-modules
+phonon:
+  distro_packages:
+  kf5_deps: 
+   - extra-cmake-modules
+karchive:
+  distro_packages:
+   - bzip2-devel
+   - liblzma-devel
+   - xz-devel
+   - media-player-info.noarch
+  kf5_deps:
+   - extra-cmake-modules
+kconfig:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+breeze-icons:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+kcodecs:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+kguiaddons:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+ki18n:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+kitemmodels:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+kitemviews:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules 
+kwidgetsaddons:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules 
+oxygen-icons5:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+sonnet:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+solid:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+threadweaver:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+kactivities:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+kauth:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules 
+   - kcoreaddons
+kcompletion:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+   - kconfig
+   - kwidgetsaddons
+kcrash:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+kdoctools:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+kjobwidgets:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+knotifications:
+  distro_packages:
+  kf5_deps:
+   - phonon
+   - extra-cmake-modules
+kpty:
+  distro_packages:
+   - libutempter-devel
+  kf5_deps:
+   - extra-cmake-modules
+   - kcoreaddons
+   - ki18n
+kunitconversion:
+  distro_packages:
+   - libutempter-devel
+  kf5_deps:
+   - extra-cmake-modules
+   - ki18n
+kded:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+   - kconfig
+   - kcoreaddons
+   - kcrash
+   - kdbusaddons
+   - kdoctools
+   - kinit
+   - kservice
+   - ki18n
+kplotting:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+kdewebkit:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+   - kconfig
+   - kcoreaddons
+   - kio
+   - kjobwidgets
+   - kparts
+   - kservice
+   - kwallet
+kpackage:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+   - kdoctools
+   - karchive
+   - kconfig
+   - kcoreaddons
+   - ki18n
+kcmutils:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+kbookmarks:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+   - kcodecs
+   - kconfig
+   - kcoreaddons
+   - kconfigwidgets
+   - kiconthemes
+   - kwidgetsaddons
+   - kxmlgui
+kconfigwidgets:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+   - kauth
+   - kcoreaddons
+   - kcodecs
+   - kconfig
+   - kdoctools
+   - kguiaddons
+   - ki18n
+   - kwidgetsaddons
+kdeclarative:
+  distro_packages:
+   - libepoxy-devel
+  kf5_deps:
+   - extra-cmake-modules
+   - kconfig
+   - ki18n
+   - kiconthemes
+   - kio
+   - kpackage
+kdesignerplugin:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+   - kcoreaddons
+   - kconfig
+   - kdewebkit
+   - kdoctools
+   - kcompletion
+   - kconfigwidgets
+   - kiconthemes
+   - kio
+   - kitemviews
+   - ktextwidgets
+   - kwidgetsaddons
+   - kxmlgui
+   - sonnet
+kglobalaccel:
+  distro_packages:
+   - libxcb1-devel
+   - libxcb-keysyms1-devel
+   - libxcb-xtest0-devel
+  kf5_deps:
+   - extra-cmake-modules
+   - kconfig
+   - kcoreaddons
+   - kcrash
+   - kdbusaddons
+   - kwindowsystem
+kiconthemes:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+   - ki18n
+   - kconfigwidgets
+   - kwidgetsaddons
+   - kitemviews
+kinit:
+  distro_packages:
+   - libx11-xcb-devel
+   - libcap-devel
+  kf5_deps:
+   - extra-cmake-modules
+   - kservice
+   - kio
+   - ki18n
+   - kwindowsystem
+   - kcrash
+   - kconfig
+   - kdoctools
+kio:
+  distro_packages:
+   - libacl1-devel
+   - libkrb5-devel
+   - libxml2-devel
+   - libxslt1-devel
+   - zlib1g-devel
+  kf5_deps:
+   - karchive
+   - kbookmarks
+   - kcompletion
+   - kconfig
+   - kconfigwidgets
+   - kcoreaddons
+   - kdbusaddons
+   - kdoctools      
+   - ki18n
+   - kiconthemes
+   - kitemviews
+   - kjobwidgets
+   - kservice
+   - solid
+   - kwidgetsaddons
+   - kwindowsystem
+knewstuff:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules      
+   - attica
+   - karchive
+   - kcompletion
+   - kconfig
+   - kcoreaddons
+   - ki18n
+   - kiconthemes
+   - kio
+   - kitemviews      
+   - kservice
+   - ktextwidgets
+   - kwidgetsaddons
+   - kxmlgui
+knotifyconfig:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+   - kcompletion
+   - kconfig
+   - ki18n
+   - kio
+   - phonon
+kparts:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+   - kconfig
+   - kcoreaddons
+   - ki18n
+   - kiconthemes
+   - kio
+   - kjobwidgets
+   - kservice
+   - ktextwidgets
+   - kwidgetsaddons
+   - kxmlgui
+kservice:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+   - kconfig
+   - kcoreaddons
+   - kcrash
+   - kdbusaddons
+   - kdoctools
+   - ki18n     
+ktexteditor:
+  distro_packages:
+   - libgit2-devel
+  kf5_deps:
+   - extra-cmake-modules
+   - karchive
+   - kconfig
+   - kguiaddons
+   - ki18n
+   - kiconthemes
+   - kio
+   - kparts
+   - sonnet
+ktextwidgets:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+   - kcompletion
+   - kconfig
+   - kconfigwidgets
+   - ki18n
+   - kiconthemes
+   - kservice
+   - kwidgetsaddons
+   - kwindowsystem
+   - sonnet
+kwallet:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules
+   - kcoreaddons
+   - kconfig
+   - kwindowsystem
+   - ki18n
+   - kdoctools
+kxmlgui:
+  distro_packages:
+  kf5_deps:
+   - attica
+   - extra-cmake-modules
+   - kcoreaddons
+   - kconfig
+   - kconfigwidgets
+   - kglobalaccel
+   - kitemviews
+   - ki18n
+   - kiconthemes
+   - ktextwidgets
+   - kwidgetsaddons
+   - kwindowsystem      
+kwindowsystem:
+  distro_packages:
+   - libxcb-keysyms1-devel
+  kf5_deps:
+   - extra-cmake-modules
+kdelibs4support:
+  distro_packages:
+  kf5_deps:
+   - extra-cmake-modules  
+   - kcompletion
+   - kconfig
+   - kconfigwidgets
+   - kcrash
+   - kdbusaddons
+   - kded
+   - kdesignerplugin
+   - kdoctools
+   - kglobalaccel     
+   - kguiaddons
+   - ki18n
+   - kiconthemes
+   - kio
+   - knotifications
+   - kparts
+   - kservice
+   - ktextwidgets
+   - kunitconversion
+   - kwidgetsaddons
+   - kwindowsystem
+   - kxmlgui      
+kjs:
+  distro_packages:
+   - libperl-devel
+   - libpcre3-devel
+  kf5_deps:
+   - extra-cmake-modules
+khtml:
+  distro_packages:
+   - libperl-devel
+   - libjpeg-devel
+   - libgif-devel
+   - libpng12-devel      
+  kf5_deps:
+   - extra-cmake-modules
+   - karchive
+   - kcodecs
+   - kglobalaccel
+   - ki18n
+   - kiconthemes
+   - kio
+   - kjs
+   - knotifications
+   - kparts
+   - ktextwidgets
+   - kwallet
+   - kwidgetsaddons
+   - kwindowsystem
+   - kxmlgui
+   - sonnet 
