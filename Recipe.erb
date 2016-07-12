@@ -79,6 +79,7 @@ cd  /app/usr
 ln -s lib lib64
 
 # start building the deps
+<%= ERB.new(File.read('Functions.erb')).result(binding) %>
 function build_cmake
 { (
      # errors fatal
