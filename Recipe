@@ -23,7 +23,7 @@ wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./func
 . ./functions.sh
 rm -f functions.sh
 
-yum -y install gettext perl-URI.noarch bzip2-devel liblzma-devel xz-devel media-player-info.noarch libfam-devel python3
+yum -y install gettext perl-URI.noarch bzip2-devel liblzma-devel xz-devel media-player-info.noarch libfam-devel 
 
 QTVERSION=5.7.0
 QVERSION_SHORT=5.7
@@ -79,6 +79,114 @@ cd  /app/usr
 ln -s lib lib64
 
 # start building the deps
+function build_cmake
+{ (
+     # errors fatal
+    echo "Compiler version:" $(g++ --version)
+    set -e
+
+    SRC=/cmake   
+    PREFIX=/app/usr/
+
+    # framework
+    CMAKE=$1
+
+    # clone if not there
+    mkdir -p $SRC
+    cd $SRC
+    if ( test -d $CMAKE )
+    then
+        echo "$CMAKE already cloned"
+        cd $CMAKE
+        git reset --hard
+        git pull --rebase
+        cd ..
+    else
+        git clone https://github.com/Kitware/CMake cmake
+    fi
+
+    
+    cd $SRC
+
+    ./bootstrap
+    
+    # make
+    make -j8
+
+    # install
+    make install
+
+) }
+if ( true == true )
+then
+    build_cmake cmake
+fi
+
+function build_wayland
+{ (
+ # errors fatal
+    echo "Compiler version:" $(g++ --version)
+    set -e
+
+    SRC=/wayland
+
+    WAYLAND=$1
+    # clone if not there
+    mkdir -p $SRC
+    cd $SRC
+
+    export WLD=/app/usr/   # change this to another location if you prefer
+    export LD_LIBRARY_PATH=$WLD/lib
+    export PKG_CONFIG_PATH=$WLD/lib/pkgconfig/:$WLD/share/pkgconfig/
+    export PATH=$WLD/bin:$PATH
+    export ACLOCAL_PATH=$WLD/share/aclocal
+    export ACLOCAL="aclocal -I $ACLOCAL_PATH"
+
+    mkdir -p $WLD/share/aclocal # needed by autotools
+    
+    #autoconf is too old on centos6
+    wget http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz
+    tar xvfvz autoconf-2.69.tar.gz
+    cd autoconf-2.69
+    ./configure --prefix=$WLD
+    make -j8
+    make install
+    #wayland
+    git clone git://anongit.freedesktop.org/wayland/$WAYLAND
+    cd $WAYLAND
+    ./autogen.sh --prefix=$WLD
+    make -j8
+    make install
+    cd .. 
+) }
+if ( false == true )
+then
+    build_wayland wayland
+fi
+
+function build_boost
+{ (
+     # errors fatal
+    echo "Compiler version:" $(g++ --version)
+    set -e
+
+    SRC=/boost
+
+    BOOST=$1
+    # clone if not there
+    mkdir -p $SRC
+    cd $SRC
+    
+    wget https://sourceforge.net/projects/boost/files/boost/1.61.0/boost_1_61_0.tar.bz2
+    tar --bzip2 -xf boost_1_61_0.tar.bz2
+    cd boost_1_61_0
+    ./bootstrap.sh --prefix=/app/usr
+    ./b2 install
+) }
+if ( false == true )
+then
+    build_boost boost
+fi
 
 function build_external
 { (
@@ -210,7 +318,8 @@ build_framework extra-cmake-modules
 #Cmake is too old on centos6.... so does this mean no sound for KDE apps? blech.
 #build_framework phonon -DPHONON_BUILD_PHONON4QT5=ON
 
-for FRAMEWORK in attica extra-cmake-modules karchive kauth kcodecs kconfig kconfigwidgets kcoreaddons kcrash kdoctools ki18n knewstuff kservice kwidgetsaddons kxmlgui kguiaddons kcompletion kiconthemes kio kitemviews ktextwidgets kdbusaddons kglobalaccel kwindowsystem; do
+for FRAMEWORK in attica extra-cmake-modules karchive kauth kcodecs kconfig kconfigwidgets kcoreaddons kcrash kdoctools ki18n knewstuff kservice kwidgetsaddons kxmlgui kguiaddons kcompletion kiconthemes kio kitemviews ktextwidgets kdbusaddons kglobalaccel kwindowsystem;
+do
   build_framework $FRAMEWORK
 done
 build_framework breeze-icons -DBINARY_ICONS_RESOURCE=1

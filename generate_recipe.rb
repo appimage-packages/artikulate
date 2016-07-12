@@ -48,5 +48,18 @@ class Recipe
     def render
         ERB.new(File.read('Recipe.erb')).result(binding)
     end
+
+appimage = Recipe.new
+appimage.name = "artikulate"
+appimage.proper_name = appimage.name.capitalize
+appimage.version = '16.04.1'
+#Needed to add ability to pull in external builds that are simply to old
+#in Centos.
+appimage.external = 'libarchive,https://github.com/libarchive/libarchive,true,""'
+appimage.cmake = true
+appimage.wayland = false
+appimage.boost = false    
+appimage.apps = [Recipe::App.new("#{appimage.name}")]
+File.write('Recipe', appimage.render)
     
 end

@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
-require_relative 'gatherdeps.rb'
+require_relative 'generate_recipe.rb'
 require_relative 'builddocker.rb'
 require 'fileutils'
 

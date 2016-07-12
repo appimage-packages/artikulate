@@ -109,7 +109,7 @@ end
 #dependencies from the cmake parsing does not match anything from a distro, so 
 # these still need to be verified by hand and assigned the proper packages. I see no way around this.
 puts dependencies
-dependencies = "python3"
+dependencies = ""
 
 
 appimage.dependencies =+ distro_packages.join(' ').to_s + ' ' + dependencies.to_s
