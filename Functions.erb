@@ -1,17 +1,17 @@
 #!/bin/bash
 
 
-function build_cmake
+function build_<%= external %>
 { (
      # errors fatal
     echo "Compiler version:" $(g++ --version)
     set -e
 
-    SRC=/cmake   
+    SRC=/<%= external %>
     PREFIX=/app/usr/
 
     # framework
-    CMAKE=$1
+    <%= external_toup %>=$1
 
     # clone if not there
     mkdir -p $SRC
