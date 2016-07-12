@@ -46,7 +46,6 @@ class Recipe
     attr_accessor :apps
         
     def render
-        ERB.new(.result(binding)
         ERB.new(File.read('Recipe.erb')).result(binding)
     end
 
