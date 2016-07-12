@@ -24,16 +24,7 @@
 require 'fileutils'
 require_relative 'generate_recipe.rb'
 
-appimage = Recipe.new
-appimage.name = "artikulate"
-appimage.proper_name = appimage.name.capitalize
-appimage.version = '16.04.1'
-#Needed to add ability to pull in external builds that are simply to old
-#in Centos.
-appimage.external = 'libarchive,https://github.com/libarchive/libarchive,true,""'
-appimage.cmake = true
-appimage.wayland = false
-appimage.boost = false
+
 cmake_deps = ''
 oddballs = []
 distro_packages = []
@@ -102,7 +93,13 @@ kf5_dependencies.each do |dep|
     distro_packages |= h["distro_packages"]
   end
   unless h["kf5_deps"].nil?
-    kf5_dependencies |= h["kf5_deps"]
+    if ( kf5_dependencies.include? dep )
+      kf5_dependencies.pop dep
+      kf5_dependencies |= h["kf5_deps"]
+      kf5_dependencies.push dep
+    else
+      kf5_dependencies |= h["kf5_deps"] 
+      kf5_dependencies.push dep
   end
 end
 
@@ -117,9 +114,6 @@ appimage.frameworks = kf5_dependencies.join(' ').to_s
 
 puts appimage.dependencies
 puts appimage.frameworks
-
-appimage.apps = [Recipe::App.new("#{appimage.name}")]
-File.write('Recipe', appimage.render)
 
 #Cleanup
 FileUtils.remove_dir(appimage.name)

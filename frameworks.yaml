@@ -3,7 +3,7 @@ extra-cmake-modules:
   kf5_deps: 
 kcoreaddons: 
   distro_packages: 
-   - libfam-devel
+   - gamin-devel
   kf5_deps: 
    - extra-cmake-modules
 attica:
@@ -26,7 +26,6 @@ phonon:
 karchive:
   distro_packages:
    - bzip2-devel
-   - liblzma-devel
    - xz-devel
    - media-player-info.noarch
   kf5_deps:
