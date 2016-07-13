@@ -349,7 +349,7 @@ mkdir -p ./usr/lib/qt5/plugins/
 
 PLUGINS=$(dirname $QTDIR/plugins/bearer)
 
-cp -r $PLUGINS/{bearer,generic,imageformats,platforms,iconengines,platforminputcontexts,xcbglintegrations,sqldrivers} ./usr/lib/qt5/plugins/
+cp -r $PLUGINS/{bearer,generic,imageformats,platforms,iconengines,platforminputcontexts,xcbglintegrations,sqldrivers,mediaservice} ./usr/lib/qt5/plugins/
 # cp -r $PLUGINS/platformthemes ./usr/lib/qt5/plugins/
 
 #Copy QML TO-DO Find a way to determine which ones.
@@ -359,6 +359,8 @@ cp -ru /usr/share/mime/* /app/usr/share/mime
 update-mime-database /app/usr/share/mime/
 
 mv ./usr/lib/plugins/* ./usr/lib/qt5/plugins/
+
+mv ./usr/etc/xdg/* ./etc/xdg/
 
 copy_deps
 mv usr/local/Qt-*/lib/* usr/lib
@@ -416,6 +418,7 @@ export QML2_IMPORT_PATH=\$DIR/usr/lib/qml:\$QML2_IMPORT_PATH
 export LD_LIBRARY_PATH=\$DIR/usr/lib/:\$LD_LIBRARY_PATH
 export QT_PLUGIN_PATH=\$DIR/usr/lib/qt5/plugins/
 export XDG_DATA_DIRS=\$DIR/usr/share/:\$XDG_DATA_DIRS
+export XDG_CONFIG_DIRS=\$DIR/etc/xdg/:\$XDG_CONFIG_DIRS
 export PATH=\$DIR/usr/bin:\$PATH
 export KDE_FORK_SLAVES=1
 
@@ -432,7 +435,6 @@ chmod +x AppRun
 cp usr/share/applications/org.kde.<%= name %>.desktop <%= name %>.desktop
 cp /<%= name %>/icons/sc-apps-<%= name %>.svg <%= name %>.svg
 
-#TO-DO this will need some text manipulation in ruby to get this var.
 APP=<%= proper_name %>
 LOWERAPP=<%= name %>
 
