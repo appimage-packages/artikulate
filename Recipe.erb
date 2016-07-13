@@ -271,32 +271,32 @@ function build_framework
         git clone git://anongit.kde.org/$FRAMEWORK
     fi
     
-    if [ "$FRAMEWORK" = "knotifications" ]; then
-	cd $FRAMEWORK
-        echo "patching knotifications"
-	git reset --hard        
-	cat > no_phonon.patch << EOF
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index b97425f..8f15f08 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -59,10 +59,10 @@ find_package(KF5Config ${KF5_DEP_VERSION} REQUIRED)
- find_package(KF5Codecs ${KF5_DEP_VERSION} REQUIRED)
- find_package(KF5CoreAddons ${KF5_DEP_VERSION} REQUIRED)
- 
--find_package(Phonon4Qt5 4.6.60 REQUIRED NO_MODULE)
-+find_package(Phonon4Qt5 4.6.60 NO_MODULE)
- set_package_properties(Phonon4Qt5 PROPERTIES
-    DESCRIPTION "Qt-based audio library"
--   TYPE REQUIRED
-+   TYPE OPTIONAL
-    PURPOSE "Required to build audio notification support")
- if (Phonon4Qt5_FOUND)
-   add_definitions(-DHAVE_PHONON4QT5)
-EOF
-	cat no_phonon.patch |patch -p1
-	cd ..
-    fi
+#     if [ "$FRAMEWORK" = "knotifications" ]; then
+# 	cd $FRAMEWORK
+#         echo "patching knotifications"
+# 	git reset --hard        
+# 	cat > no_phonon.patch << EOF
+# diff --git a/CMakeLists.txt b/CMakeLists.txt
+# index b97425f..8f15f08 100644
+# --- a/CMakeLists.txt
+# +++ b/CMakeLists.txt
+# @@ -59,10 +59,10 @@ find_package(KF5Config ${KF5_DEP_VERSION} REQUIRED)
+#  find_package(KF5Codecs ${KF5_DEP_VERSION} REQUIRED)
+#  find_package(KF5CoreAddons ${KF5_DEP_VERSION} REQUIRED)
+#  
+# -find_package(Phonon4Qt5 4.6.60 REQUIRED NO_MODULE)
+# +find_package(Phonon4Qt5 4.6.60 NO_MODULE)
+#  set_package_properties(Phonon4Qt5 PROPERTIES
+#     DESCRIPTION "Qt-based audio library"
+# -   TYPE REQUIRED
+# +   TYPE OPTIONAL
+#     PURPOSE "Required to build audio notification support")
+#  if (Phonon4Qt5_FOUND)
+#    add_definitions(-DHAVE_PHONON4QT5)
+# EOF
+# 	cat no_phonon.patch |patch -p1
+# 	cd ..
+#     fi
 
     # create build dir
     mkdir -p $BUILD/$FRAMEWORK
@@ -316,8 +316,7 @@ EOF
 
 #TO-DO script these extras
 build_framework extra-cmake-modules
-#Cmake is too old on centos6.... so does this mean no sound for KDE apps? blech.
-#build_framework phonon -DPHONON_BUILD_PHONON4QT5=ON
+build_framework phonon -DPHONON_BUILD_PHONON4QT5=ON
 
 for FRAMEWORK in <%= frameworks %>;
 do
@@ -350,8 +349,11 @@ mkdir -p ./usr/lib/qt5/plugins/
 
 PLUGINS=$(dirname $QTDIR/plugins/bearer)
 
-cp -r $PLUGINS/{bearer,generic,imageformats,platforms,iconengines,platforminputcontexts,xcbglintegrations} ./usr/lib/qt5/plugins/
+cp -r $PLUGINS/{bearer,generic,imageformats,platforms,iconengines,platforminputcontexts,xcbglintegrations,sqldrivers} ./usr/lib/qt5/plugins/
 # cp -r $PLUGINS/platformthemes ./usr/lib/qt5/plugins/
+
+#Copy QML TO-DO Find a way to determine which ones.
+cp -r $QTDIR/qml/* ./usr/lib/qml/
 
 cp -ru /usr/share/mime/* /app/usr/share/mime
 update-mime-database /app/usr/share/mime/

@@ -60,7 +60,7 @@ appimage.cmake = true
 appimage.wayland = false
 appimage.boost = false
 #Run gatherdeps local to get dep lists. TO_DO: run on jenkins.
-appimage.dependencies = 'bzip2-devel liblzma-devel xz-devel media-player-info.noarch libfam-devel python33'
+appimage.dependencies = 'bzip2-devel liblzma-devel xz-devel media-player-info.noarch libfam-devel python33 sqlite'
 appimage.frameworks = 'attica extra-cmake-modules karchive kcoreaddons kauth kcodecs kconfig kdoctools kguiaddons ki18n kwidgetsaddons kconfigwidgets kwindowsystem kcrash kcompletion kitemviews kiconthemes kdbusaddons kservice kjobwidgets solid sonnet ktextwidgets kglobalaccel kxmlgui kbookmarks kio knewstuff'
 appimage.apps = [Recipe::App.new("#{appimage.name}")]
 File.write('Recipe', appimage.render)
