@@ -112,6 +112,8 @@ frameworks:
     - kwallet
     - kparts
     - kpty
+    - attica
+    - knewstuff
 type: git
 url: http://anongit.kde.org/artikulate
 buildsystem: cmake
