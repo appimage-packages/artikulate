@@ -77,7 +77,8 @@ packages:
   - flex
   - bison
   - libxslt1-dev
-  #app specifc
+  - libdbusmenu-qt5-dev
+  #app specifc  
 frameworks:
   build_kf5: true
   frameworks:
