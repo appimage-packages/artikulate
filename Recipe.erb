@@ -27,13 +27,13 @@ rm -f functions.sh
 
 mkdir /<%= name %>.AppDir/
 
-cd /app/src
-git clone git://anongit.kde.org/scratch/brauch/appimage-exec-wrapper
-cd /app/src/appimage-exec-wrapper/
-make clean
-make
-cp -v exec.so /<%= name %>.AppDir/exec_wrapper.so
-rm -rfv  /app/src/appimage-exec-wrapper
+# cd /app/src
+# git clone git://anongit.kde.org/scratch/brauch/appimage-exec-wrapper
+# cd /app/src/appimage-exec-wrapper/
+# make clean
+# make
+# cp -v exec.so /<%= name %>.AppDir/exec_wrapper.so
+# rm -rfv  /app/src/appimage-exec-wrapper
 
 cd /
 wget https://github.com/probonopd/linuxdeployqt/releases/download/1/linuxdeployqt-1-x86_64.AppImage
@@ -41,74 +41,93 @@ chmod a+x linuxdeployqt-1-x86_64.AppImage
 
 cd /<%= name %>.AppDir
 
-# Create AppRun
-cat > AppRun << EOF
-#!/bin/bash
+# #Create AppRun
+# cat > AppRun << EOF
+# #!/bin/sh
+# DIR="\`dirname \"\$0\"\`"
+# DIR="\`( cd \"\$DIR\" && pwd )\`"
+# export APPDIR=\$DIR
+#
+# export LD_PRELOAD=\$DIR/exec_wrapper.so
+#
+# export APPIMAGE_ORIGINAL_QML2_IMPORT_PATH=\$QML2_IMPORT_PATH
+# export APPIMAGE_ORIGINAL_LD_LIBRARY_PATH=\$LD_LIBRARY_PATH
+# export APPIMAGE_ORIGINAL_QT_PLUGIN_PATH=\$QT_PLUGIN_PATH
+# export APPIMAGE_ORIGINAL_XDG_DATA_DIRS=\$XDG_DATA_DIRS
+# export APPIMAGE_ORIGINAL_PATH=\$PATH
+# export QML2_IMPORT_PATH=\$DIR/qml
+# export QT_PLUGIN_PATH=\$DIR/usr/lib/qt5/plugins
+# export LD_LIBRARY_PATH=\$QT_PLUGIN_PATH:\$DIR/lib:\$DIR/usr/lib
+# export XDG_DATA_DIRS=\$DIR/share/:\$DIR/usr/share
+# export XDG_CONFIG_DIRS=\$DIR/etc
+# export PATH=\$DIR/bin:\$DIR/usr/bin
+# export KDE_FORK_SLAVES=1
+# export APPIMAGE_STARTUP_QML2_IMPORT_PATH=\$QML2_IMPORT_PATH
+# export APPIMAGE_STARTUP_LD_LIBRARY_PATH=\$LD_LIBRARY_PATH
+# export APPIMAGE_STARTUP_QT_PLUGIN_PATH=\$QT_PLUGIN_PATH
+# export APPIMAGE_STARTUP_XDG_DATA_DIRS=\$XDG_DATA_DIRS
+# export APPIMAGE_STARTUP_PATH=\$PATH
+# <%= name %> \$@
+# EOF
+# chmod +x AppRun
 
-DIR="\`dirname \"\$0\"\`"
-DIR="\`( cd \"\$DIR\" && pwd )\`"
-export APPDIR=\$DIR
+#Move everything into AppDir
+mv /app/usr .
+mv usr/bin/<%= name %> .
+mv usr/share/applications/*<%= name %>*.desktop <%= name %>.desktop
+cp usr/share/icons/hicolor/48x48/apps/*<%= name %>* .
 
-export LD_PRELOAD=\$DIR/exec_wrapper.so
 
-export APPIMAGE_ORIGINAL_QML2_IMPORT_PATH=\$QML2_IMPORT_PATH
-export APPIMAGE_ORIGINAL_LD_LIBRARY_PATH=\$LD_LIBRARY_PATH
-export APPIMAGE_ORIGINAL_QT_PLUGIN_PATH=\$QT_PLUGIN_PATH
-export APPIMAGE_ORIGINAL_XDG_DATA_DIRS=\$XDG_DATA_DIRS
-export APPIMAGE_ORIGINAL_PATH=\$PATH
-
-export QML2_IMPORT_PATH=\$DIR/usr/lib/qml:\$QML2_IMPORT_PATH
-export QT_PLUGIN_PATH=\$DIR/usr/lib/qt5/plugins/:\$DIR/usr/lib/x86_64-linux-gnu/plugins:\$DIR/usr/lib/x86_64-linux-gnu/plugins/kf5:\$QT_PLUGIN_PATH
-export LD_LIBRARY_PATH=\$QT_PLUGIN_PATH:\$DIR/usr/lib/:\$LD_LIBRARY_PATH
-export XDG_DATA_DIRS=\$DIR/usr/share/:\$XDG_DATA_DIRS
-export PATH=\$DIR/usr/bin:\$PATH
-export KDE_FORK_SLAVES=1
-
-export APPIMAGE_STARTUP_QML2_IMPORT_PATH=\$QML2_IMPORT_PATH
-export APPIMAGE_STARTUP_LD_LIBRARY_PATH=\$LD_LIBRARY_PATH
-export APPIMAGE_STARTUP_QT_PLUGIN_PATH=\$QT_PLUGIN_PATH
-export APPIMAGE_STARTUP_XDG_DATA_DIRS=\$XDG_DATA_DIRS
-export APPIMAGE_STARTUP_PATH=\$PATH
-
-<%= name %> \$@
-EOF
-chmod +x AppRun
-cp /app/usr/bin/<%= name %> .
-cp /app/usr/share/applications/*<%= name %>*.desktop <%= name %>.desktop
-cp /app/usr/share/icons/hicolor/scalable/apps/*<%= name %>* .
-
-#Move everything except libs into AppDir
-mkdir ./usr; mv /app/usr/{bin,share} ./usr/
-mkdir ./etc; mv /app/etc $_
-mkdir -p ./usr/lib/x86_64-linux-gnu/plugins; mv /app/usr/lib/x86_64-linux-gnu/plugins $_
-
-../linuxdeployqt-1-x86_64.AppImage <%= name %> -verbose=3 -bundle-non-qt-libs -qmldir=/opt/usr/qml
-
-glibc_needed
-patch_usr
-delete_blacklisted
-get_desktopintegration <%= name %>
-
+#All the plugins do not seem to be getting in. Manual copy.
+#mkdir -p ./plugins; cp -rfv /opt/usr/plugins/{platformthemes,platforminputcontexts,iconengines,styles} $_
+mkdir -p ./usr/lib/qml/
+rsync -aruxv --progress /opt/usr/plugins/kf5/ ./plugins/
+rsync -aruxv --progress /opt/usr/share/ ./usr/share/
+# cp /usr/lib/x86_64-linux-gnu/pulseaudio/*.so* ./usr/lib/
+# cp /usr/lib/x86_64-linux-gnu/libxshmfence* ./usr/lib/
+# cp /usr/lib/x86_64-linux-gnu/libX*  ./usr/lib/
+# cp /usr/lib/x86_64-linux-gnu/libxcb* ./usr/lib/
+# cp /usr/lib/x86_64-linux-gnu/libdrm* ./usr/lib/
+# cp /usr/lib/x86_64-linux-gnu/libSM* ./usr/lib/
+# cp  /usr/lib/x86_64-linux-gnu/libICE* ./usr/lib/
+# cp /usr/lib/x86_64-linux-gnu/libxkb* ./usr/lib/
+# cp /usr/lib/x86_64-linux-gnu/libfontconfig* ./usr/lib/
+# cp /usr/lib/x86_64-linux-gnu/libfreetype* ./usr/lib/
 #Cleanup
 # We don't bundle the developer stuff
-rm -rf usr/include || true
-rm -rf usr/lib/cmake || true
-rm -rf usr/lib/pkgconfig || true
-rm -rf usr/share/ECM/ || true
-rm -rf usr/share/gettext || true
-rm -rf usr/share/pkgconfig || true
-rm -rf usr/mkspecs/ || true
-rm -rf usr/gettext-* || true
-rm -rf usr/autoconf-* || true
-rm -rf usr/automake-* || true
-rm -rf usr/libtool-* || true
+rm -rf ./usr/include || true
+rm -rf ./usr/lib/cmake || true
+rm -rf ./lib/cmake || true
+rm -rf ./usr/lib/pkgconfig || true
+rm -rf ./usr/share/ECM/ || true
+rm -rf ./usr/share/gettext || true
+rm -rf ./usr/share/pkgconfig || true
+rm -rf ./usr/mkspecs/ || true
+rm -rf ./usr/gettext-* || true
+rm -rf ./usr/autoconf-* || true
+rm -rf ./usr/automake-* || true
+rm -rf ./usr/libtool-* || true
 find . -name '*.a' -exec rm {} \;
-
+update-mime-database ./usr/share/mime/
+# Prevent Qt from loading plugins from the system
+# unset QTPATH
+# QTPATH=$(find ./plugins -type d)
+# if [ ! -z $QTPATH ] ; then
+# cat > ./usr/bin/qt.conf <<EOF
+# [Paths]
+# Prefix = $QTPATH
+# EOF
+# fi
 strip -g $(find usr) || true
 
-# Until this repo stabilizes we will use the appimage.
-# Build AppImageKit
-
+mv usr/lib/libexec/kf5/* /app/usr/bin/ || true
+../linuxdeployqt-1-x86_64.AppImage <%= name %> -verbose=3 -bundle-non-qt-libs -qmldir=/opt/usr/qml
+patch_usr
+glibc_needed
+delete_blacklisted
+#move_lib
+get_desktopintegration <%= name %>
+get_apprun
 cd /
 wget "https://github.com/probonopd/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
 chmod a+x appimagetool-x86_64.AppImage
