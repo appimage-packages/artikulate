@@ -78,7 +78,7 @@ packages:
   - bison
   - libxslt1-dev
   - libdbusmenu-qt5-dev
-  #app specifc  
+  #app specifc
 frameworks:
   build_kf5: true
   frameworks:
@@ -109,6 +109,7 @@ frameworks:
     - kjobwidgets
     - kio
     - phonon
+    - phonon-gstreamer
     - knotifications
     - kwallet
     - kparts
