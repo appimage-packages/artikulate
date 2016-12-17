@@ -73,7 +73,7 @@ cd /<%= name %>.AppDir
 
 #Move everything into AppDir
 mv /app/usr .
-mkdir ./lib mv ./usr/lib/x86_64-linux-gnu/libartikulate* $_
+mkdir ./lib; mv ./usr/lib/x86_64-linux-gnu/libartikulate* $_
 mv usr/bin/<%= name %> .
 mv usr/share/applications/*<%= name %>*.desktop <%= name %>.desktop
 cp usr/share/icons/hicolor/48x48/apps/*<%= name %>* .
