@@ -87,6 +87,7 @@ frameworks:
     - ki18n
     - kitemviews
     - kconfig
+    - polkit-qt-1
     - kauth
     - kcodecs
     - karchive
@@ -103,23 +104,20 @@ frameworks:
     - sonnet
     - ktextwidgets
     - kglobalaccel
+    - attica
     - kxmlgui
     - solid
     - kbookmarks
     - kjobwidgets
-    - kio
     - phonon
-    - phonon-gstreamer
     - knotifications
     - kwallet
-    - kparts
-    - kpty
-    - attica
-    - knewstuff
+    - kio
+    - gpgmepp
 type: git
 url: http://anongit.kde.org/artikulate
 buildsystem: cmake
-buildoptions: "-DCMAKE_INSTALL_PREFIX=/app/usr -DBUILD_TESTING=OFF"
+buildoptions: '-DCMAKE_INSTALL_PREFIX:PATH=/opt/usr -DKDE_INSTALL_SYSCONFDIR=/opt/etc -DBUILD_TESTING=OFF'
 dependencies:
   - cpan:
       build:
@@ -129,3 +127,35 @@ dependencies:
       source:
         type: none
         url: ''
+  - qjson:
+      build:
+        buildsystem: cmake
+        buildoptions: '-DCMAKE_INSTALL_PREFIX:PATH=/opt/usr'
+      depname: qjson
+      source:
+        type: git
+        url: 'https://github.com/flavio/qjson'
+  - libdbusmenu-qt:
+      build:
+        buildsystem: cmake
+        buildoptions: '-DCMAKE_INSTALL_PREFIX:PATH=/opt/usr'
+      depname: libdbusmenu-qt
+      source:
+        type: bzr
+        url: 'lp:libdbusmenu-qt'
+  - qt-gstreamer:
+      build:
+        buildsystem: cmake
+        buildoptions: '-DQT_VERSION=5'
+      depname: qt-gstreamer-1.2.0
+      source:
+        type: xz
+        url: 'https://gstreamer.freedesktop.org/src/qt-gstreamer/qt-gstreamer-1.2.0.tar.xz'
+  - gpgme:
+      build:
+        buildsystem: make
+        buildoptions: ''
+      depname: gpgme
+      source:
+        type: git
+        url: 'git://git.gnupg.org/gpgme.git'

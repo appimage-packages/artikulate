@@ -71,19 +71,20 @@ cd /<%= name %>.AppDir
 # EOF
 # chmod +x AppRun
 
-#Move everything into AppDir
-mv /app/usr .
-mkdir ./lib; mv ./usr/lib/x86_64-linux-gnu/libartikulate* $_
-mv usr/bin/<%= name %> .
-mv usr/share/applications/*<%= name %>*.desktop <%= name %>.desktop
-cp usr/share/icons/hicolor/48x48/apps/*<%= name %>* .
+#Move binary/desktop/icon into AppDir
+mv /opt/usr/bin/<%= name %> .
+mv /opt/usr/share/applications/*<%= name %>*.desktop <%= name %>.desktop
+cp /opt/usr/share/icons/hicolor/48x48/apps/*<%= name %>* .
 
 
 #All the plugins do not seem to be getting in. Manual copy.
 #mkdir -p ./plugins; cp -rfv /opt/usr/plugins/{platformthemes,platforminputcontexts,iconengines,styles} $_
-mkdir -p ./usr/lib/qml/
+#mkdir -p ./usr/lib/qml/
+mkdir ./usr/{share,bin,lib}
+mkdir ./etc
 rsync -aruxv --progress /opt/usr/plugins/kf5/ ./plugins/
 rsync -aruxv --progress /opt/usr/share/ ./usr/share/
+rsync -aruxv --progress /opt/etc/ ./etc/
 # cp /usr/lib/x86_64-linux-gnu/pulseaudio/*.so* ./usr/lib/
 # cp /usr/lib/x86_64-linux-gnu/libxshmfence* ./usr/lib/
 # cp /usr/lib/x86_64-linux-gnu/libX*  ./usr/lib/
