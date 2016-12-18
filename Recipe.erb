@@ -78,7 +78,7 @@ cp /opt/usr/share/icons/hicolor/48x48/apps/*<%= name %>* .
 
 
 #All the plugins do not seem to be getting in. Manual copy.
-#mkdir -p ./plugins; cp -rfv /opt/usr/plugins/{platformthemes,platforminputcontexts,iconengines,styles} $_
+mkdir -p ./plugins; cp -rfv /opt/usr/plugins/{phonon4qt5_backend} $_
 #mkdir -p ./usr/lib/qml/
 mkdir -p ./usr/{share,bin,lib}
 mkdir ./etc
@@ -123,7 +123,7 @@ update-mime-database ./usr/share/mime/
 strip -g $(find usr) || true
 
 mv usr/lib/libexec/kf5/* /app/usr/bin/ || true
-../linuxdeployqt-1-x86_64.AppImage <%= name %> -verbose=3 -bundle-non-qt-libs -qmldir=/opt/usr/qml
+../linuxdeployqt-1-x86_64.AppImage <%= name %> -verbose=3 -bundle-non-qt-libs -qmldir=/opt/usr/qml libpath=/usr/lib/x86_64-linux-gnu/pulseaudio
 patch_usr
 glibc_needed
 delete_blacklisted
