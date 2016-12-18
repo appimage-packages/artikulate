@@ -126,6 +126,7 @@ frameworks:
     - kwallet
     - kio
     - gpgmepp
+    - knewstuff
 type: git
 url: http://anongit.kde.org/artikulate
 buildsystem: cmake
