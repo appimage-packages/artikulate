@@ -77,7 +77,18 @@ packages:
   - flex
   - bison
   - libxslt1-dev
-  - libdbusmenu-qt5-dev
+  - libgpgme11-dev
+  - bzr
+  - doxygen
+  - libsphinxbase-dev
+  - libboost-all-dev
+  - sphinx-common
+  - libaspell-dev
+  - hspell
+  - libhunspell-dev
+  - libvoikko-dev
+  - libxcb-xtest0-dev
+  - libacl1-dev
   #app specifc
 frameworks:
   build_kf5: true
@@ -147,7 +158,7 @@ dependencies:
   - qt-gstreamer:
       build:
         buildsystem: cmake
-        buildoptions: '-DQT_VERSION=5'
+        buildoptions: '-DCMAKE_INSTALL_PREFIX:PATH=/opt/usr -DQT_VERSION=5'
       depname: qt-gstreamer-1.2.0
       source:
         type: xz
