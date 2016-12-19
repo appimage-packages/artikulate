@@ -100,7 +100,7 @@ make clean
 make
 cp -v exec.so /<%= name %>.AppDir/exec_wrapper.so
 rm -rfv  /app/src/appimage-exec-wrapper
-
+cd /<%= name %>.AppDir
 #Create AppRun
 cat > AppRun << EOF
 #!/bin/sh
@@ -116,7 +116,7 @@ export APPIMAGE_ORIGINAL_QT_PLUGIN_PATH=\$QT_PLUGIN_PATH
 export APPIMAGE_ORIGINAL_XDG_DATA_DIRS=\$XDG_DATA_DIRS
 export APPIMAGE_ORIGINAL_PATH=\$PATH
 export QML2_IMPORT_PATH=\$DIR/qml
-export QT_PLUGIN_PATH=\$DIR/usr/lib/qt5/plugins
+export QT_PLUGIN_PATH=\$DIR/plugins
 export LD_LIBRARY_PATH=\$QT_PLUGIN_PATH:\$DIR/lib:\$DIR/usr/lib
 export XDG_DATA_DIRS=\$DIR/share/:\$DIR/usr/share
 export XDG_CONFIG_DIRS=\$DIR/etc
