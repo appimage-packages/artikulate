@@ -79,6 +79,7 @@ cp /opt/usr/share/icons/hicolor/48x48/apps/*<%= name %>* .
 
 #All the plugins do not seem to be getting in. Manual copy.
 mkdir -p ./plugins; cp -rfv /opt/usr/lib/qt5/plugins/phonon4qt5_backend $_
+cp -rfv /opt/usr/plugins/artikulate ./plugins
 #mkdir -p ./usr/lib/qml/
 mkdir -p ./usr/{share,bin,lib}
 mkdir ./etc
@@ -90,11 +91,7 @@ cp /usr/lib/x86_64-linux-gnu/pulseaudio/*.so* ./usr/lib/
 # cp /usr/lib/x86_64-linux-gnu/libX*  ./usr/lib/
 # cp /usr/lib/x86_64-linux-gnu/libxcb* ./usr/lib/
 # cp /usr/lib/x86_64-linux-gnu/libdrm* ./usr/lib/
-# cp /usr/lib/x86_64-linux-gnu/libSM* ./usr/lib/
-# cp  /usr/lib/x86_64-linux-gnu/libICE* ./usr/lib/
 # cp /usr/lib/x86_64-linux-gnu/libxkb* ./usr/lib/
-# cp /usr/lib/x86_64-linux-gnu/libfontconfig* ./usr/lib/
-# cp /usr/lib/x86_64-linux-gnu/libfreetype* ./usr/lib/
 #Cleanup
 # We don't bundle the developer stuff
 rm -rf ./usr/include || true
@@ -115,7 +112,7 @@ update-mime-database ./usr/share/mime/
 # unset QTPATH
 # QTPATH=$(find ./plugins -type d)
 # if [ ! -z $QTPATH ] ; then
-# cat > ./usr/bin/qt.conf <<EOF
+# cat > qt.conf <<EOF
 # [Paths]
 # Prefix = $QTPATH
 # EOF
@@ -123,7 +120,7 @@ update-mime-database ./usr/share/mime/
 strip -g $(find usr) || true
 
 mv usr/lib/libexec/kf5/* /app/usr/bin/ || true
-../linuxdeployqt-1-x86_64.AppImage <%= name %> -verbose=3 -bundle-non-qt-libs -qmldir=/opt/usr/qml libpath=/usr/lib/x86_64-linux-gnu/pulseaudio
+../linuxdeployqt-1-x86_64.AppImage <%= name %> -verbose=3 -bundle-non-qt-libs -qmldir=/opt/usr/qml -libpath=/usr/lib/x86_64-linux-gnu/pulseaudio/libpulsecommon-4.0.so -libpath=/opt/usr/lib/libQt5XcbQpa.so
 patch_usr
 glibc_needed
 delete_blacklisted
