@@ -121,7 +121,7 @@ strip -g $(find usr/bin) || true
 strip -g $(find usr/lib) || true
 
 mv usr/lib/libexec/kf5/* /app/usr/bin/ || true
-mv /opt/usr/lib/x86_64-linux-gnu/* /opt/usr/lib/
+cp -rfv /opt/usr/lib/x86_64-linux-gnu/* /opt/usr/lib/
 unset LD_LIBRARY_PATH
 ../linuxdeployqt-1-x86_64.AppImage <%= name %> -verbose=3 -bundle-non-qt-libs -qmldir=/opt/usr/qml -libpath=/usr/lib/x86_64-linux-gnu/pulseaudio/libpulsecommon-4.0.so -libpath=/opt/usr/lib/libQt5XcbQpa.so
 patch_usr
