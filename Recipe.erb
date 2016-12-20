@@ -130,11 +130,11 @@ export APPIMAGE_STARTUP_LD_LIBRARY_PATH=\$LD_LIBRARY_PATH
 export APPIMAGE_STARTUP_QT_PLUGIN_PATH=\$QT_PLUGIN_PATH
 export APPIMAGE_STARTUP_XDG_DATA_DIRS=\$XDG_DATA_DIRS
 export APPIMAGE_STARTUP_PATH=\$PATH
-EXEC=$(grep -e '^Exec=.*' "${DIR}"/*.desktop | head -n 1 | cut -d "=" -f 2 | cut -d " " -f 1)
-exec "${EXEC}" $@
+<%= name %>  $@
 EOF
 chmod +x AppRun
 mv <%= name %> ./usr/bin/
+mkdir ./usr/share/applications; mv <%= name %>.desktop $_
 cd /
 wget "https://github.com/probonopd/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
 chmod a+x appimagetool-x86_64.AppImage
