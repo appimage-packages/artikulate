@@ -51,6 +51,8 @@ rsync -aruxv --progress /opt/usr/plugins/kf5/ ./plugins/
 rsync -aruxv --progress /opt/usr/share/ ./usr/share/
 rsync -aruxv --progress /opt/etc/ ./etc/
 cp /usr/lib/x86_64-linux-gnu/pulseaudio/*.so* ./usr/lib/
+mkdir ./lib
+cp /usr/lib/x86_64-linux-gnu/pulseaudio/*.so* ./lib/
 # cp /usr/lib/x86_64-linux-gnu/libxshmfence* ./usr/lib/
 # cp /usr/lib/x86_64-linux-gnu/libX*  ./usr/lib/
 # cp /usr/lib/x86_64-linux-gnu/libxcb* ./usr/lib/
@@ -101,6 +103,7 @@ make
 cp -v exec.so /<%= name %>.AppDir/exec_wrapper.so
 rm -rfv  /app/src/appimage-exec-wrapper
 cd /<%= name %>.AppDir
+rm AppRun
 #Create AppRun
 cat > AppRun << EOF
 #!/bin/sh
@@ -131,7 +134,7 @@ EXEC=$(grep -e '^Exec=.*' "${DIR}"/*.desktop | head -n 1 | cut -d "=" -f 2 | cut
 exec "${EXEC}" $@
 EOF
 chmod +x AppRun
-mv <%= name %> ./usr/bin/
+#mv <%= name %> ./usr/bin/
 cd /
 wget "https://github.com/probonopd/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
 chmod a+x appimagetool-x86_64.AppImage
