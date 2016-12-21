@@ -74,6 +74,7 @@ rm -rf ./usr/autoconf-* || true
 rm -rf ./usr/automake-* || true
 rm -rf ./usr/libtool-* || true
 find . -name '*.a' -exec rm {} \;
+cp /etc/mime.types ./etc/
 update-mime-database ./usr/share/mime
 # Prevent Qt from loading plugins from the system
 # unset QTPATH
