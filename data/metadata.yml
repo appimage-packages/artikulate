@@ -51,13 +51,10 @@ packages:
   - libharfbuzz-dev
   - libxkbcommon-x11-dev
   - libasound2-dev
-  - libgstreamer-plugins-base1.0-dev
-  - libgstreamer1.0-dev
   - libts-dev
   - libpulse-dev
   - libproxy-dev
   - libxss-dev
-  - libsnappy-dev
   - libsrtp0-dev
   - libflac++-dev
   - libopus-dev
@@ -89,13 +86,11 @@ packages:
   - libvoikko-dev
   - libxcb-xtest0-dev
   - libacl1-dev
-  - gstreamer1.0-plugins-good
-  - gstreamer1.0-pulseaudio
   - media-player-info
   - libcdio-cdda-dev
-  - gstreamer1.0-plugins-base
   - libpolkit-agent-1-dev
   - libfam-dev
+  - bzip2
   #app specifc
 frameworks:
   build_kf5: true
@@ -130,9 +125,9 @@ frameworks:
     - phonon
     - phonon-gstreamer
     - knotifications
+    - gpgmepp
     - kwallet
     - kio
-    - gpgmepp
     - knewstuff
 type: git
 url: http://anongit.kde.org/artikulate
@@ -163,6 +158,54 @@ dependencies:
       source:
         type: bzr
         url: 'lp:libdbusmenu-qt'
+  - gstreamer:
+      build:
+        buildsystem: make
+        buildoptions: ''
+      depname: gstreamer-1.10.2
+      source:
+        type: xz
+        url: 'https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-1.10.2.tar.xz'
+  - gst-plugins-base:
+      build:
+        buildsystem: make
+        buildoptions: ''
+      depname: gst-plugins-base-1.10.2
+      source:
+        type: xz
+        url: 'https://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-1.10.2.tar.xz'
+  - gst-plugins-good:
+      build:
+        buildsystem: make
+        buildoptions: ''
+      depname: gst-plugins-good-1.10.2
+      source:
+        type: xz
+        url: 'https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-1.10.2.tar.xz'
+  - gst-plugins-bad:
+      build:
+        buildsystem: make
+        buildoptions: ''
+      depname: gst-plugins-bad-1.10.2
+      source:
+        type: xz
+        url: 'https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-1.10.2.tar.xz'
+  - gst-plugins-ugly:
+      build:
+        buildsystem: make
+        buildoptions: ''
+      depname: gst-plugins-ugly-1.10.2
+      source:
+        type: xz
+        url: 'https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.10.2.tar.xz'
+  - gst-libav:
+      build:
+        buildsystem: make
+        buildoptions: ''
+      depname: gst-libav-1.10.2
+      source:
+        type: xz
+        url: 'https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-1.10.2.tar.xz'
   - qt-gstreamer:
       build:
         buildsystem: cmake
