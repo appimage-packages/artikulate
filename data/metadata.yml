@@ -91,6 +91,7 @@ packages:
   - libpolkit-agent-1-dev
   - libfam-dev
   - bzip2
+  - shared-mime-info
   #app specifc
 frameworks:
   build_kf5: true
