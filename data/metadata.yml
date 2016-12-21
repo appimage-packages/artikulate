@@ -91,6 +91,11 @@ packages:
   - libacl1-dev
   - gstreamer1.0-plugins-good
   - gstreamer1.0-pulseaudio
+  - media-player-info
+  - libcdio-cdda-dev
+  - gstreamer1.0-plugins-base
+  - libpolkit-agent-1-dev
+  - libfam-dev
   #app specifc
 frameworks:
   build_kf5: true
