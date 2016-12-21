@@ -89,6 +89,8 @@ packages:
   - libvoikko-dev
   - libxcb-xtest0-dev
   - libacl1-dev
+  - gstreamer1.0-plugins-good
+  - gstreamer1.0-pulseaudio
   #app specifc
 frameworks:
   build_kf5: true
