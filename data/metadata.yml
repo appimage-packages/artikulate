@@ -92,6 +92,9 @@ packages:
   - libfam-dev
   - bzip2
   - shared-mime-info
+  - nvidia-cuda-dev
+  - libcudart7.5
+  - libcurl4-openssl-dev
   #app specifc
 frameworks:
   build_kf5: true
@@ -131,6 +134,7 @@ frameworks:
     - kio
     - knewstuff
     - breeze-icons
+    - plasma-framework
 type: git
 url: http://anongit.kde.org/artikulate
 buildsystem: cmake
