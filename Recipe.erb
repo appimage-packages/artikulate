@@ -34,7 +34,8 @@ wget https://github.com/probonopd/linuxdeployqt/releases/download/1/linuxdeployq
 chmod a+x linuxdeployqt-1-x86_64.AppImage
 
 cd /<%= name %>.AppDir
-
+# Artikulate has a data repo..
+git clone https://github.com/KDE/artikulate-data .
 #Move binary/desktop/icon into AppDir
 mv /opt/usr/bin/<%= name %> .
 mv /opt/usr/share/applications/*<%= name %>*.desktop <%= name %>.desktop
