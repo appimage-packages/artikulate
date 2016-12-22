@@ -54,11 +54,9 @@ cp /usr/lib/x86_64-linux-gnu/pulseaudio/*.so* ./usr/lib/
 cp -rfv /opt/usr/lib/gstreamer-1.0/* ./usr/lib/
 mkdir ./lib
 cp /usr/lib/x86_64-linux-gnu/pulseaudio/*.so* ./lib/
-# cp /usr/lib/x86_64-linux-gnu/libxshmfence* ./usr/lib/
-# cp /usr/lib/x86_64-linux-gnu/libX*  ./usr/lib/
-# cp /usr/lib/x86_64-linux-gnu/libxcb* ./usr/lib/
-# cp /usr/lib/x86_64-linux-gnu/libdrm* ./usr/lib/
-# cp /usr/lib/x86_64-linux-gnu/libxkb* ./usr/lib/
+cp -rfv /usr/share/mime ./usr/share/
+cp /etc/mime.types ./etc/
+update-mime-database ./usr/share/mime
 #Cleanup
 # We don't bundle the developer stuff
 rm -rf ./usr/include || true
@@ -74,8 +72,6 @@ rm -rf ./usr/autoconf-* || true
 rm -rf ./usr/automake-* || true
 rm -rf ./usr/libtool-* || true
 find . -name '*.a' -exec rm {} \;
-cp /etc/mime.types ./etc/
-update-mime-database ./usr/share/mime
 # Prevent Qt from loading plugins from the system
 # unset QTPATH
 # QTPATH=$(find ./plugins -type d)
