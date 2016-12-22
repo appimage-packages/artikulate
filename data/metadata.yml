@@ -213,7 +213,7 @@ dependencies:
   - qt-gstreamer:
       build:
         buildsystem: cmake
-        buildoptions: '-DCMAKE_INSTALL_PREFIX:PATH=/opt/usr -DQT_VERSION=5 -DCMAKE_REQUIRED_INCLUDES=/opt/usr/include/gstreamer-1.0/ -D-DQTGSTREAMER_STATIC=OFF -D-DQTGSTREAMER_EXAMPLES=OFF'
+        buildoptions: '-DCMAKE_INSTALL_PREFIX:PATH=/opt/usr -DQT_VERSION=5 -DCMAKE_REQUIRED_INCLUDES=/opt/usr/include/gstreamer-1.0/ -DQTGSTREAMER_STATIC=OFF -DQTGSTREAMER_EXAMPLES=OFF'
       depname: qt-gstreamer-1.2.0
       source:
         type: xz
