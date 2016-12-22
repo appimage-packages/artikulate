@@ -34,8 +34,7 @@ wget https://github.com/probonopd/linuxdeployqt/releases/download/1/linuxdeployq
 chmod a+x linuxdeployqt-1-x86_64.AppImage
 
 cd /<%= name %>.AppDir
-# Artikulate has a data repo..
-git clone https://github.com/KDE/artikulate-data .
+
 #Move binary/desktop/icon into AppDir
 mv /opt/usr/bin/<%= name %> .
 mv /opt/usr/share/applications/*<%= name %>*.desktop <%= name %>.desktop
@@ -51,6 +50,7 @@ mkdir ./etc
 rsync -aruxv --progress /opt/usr/plugins/kf5/ ./plugins/
 rsync -aruxv --progress /opt/usr/share/ ./usr/share/
 rsync -aruxv --progress /opt/etc/ ./etc/
+rsync -aruxv --progress /opt/usr/qml/ ./qml
 cp /usr/lib/x86_64-linux-gnu/pulseaudio/*.so* ./usr/lib/
 cp -rfv /opt/usr/lib/gstreamer-1.0/* ./usr/lib/
 mkdir ./lib
@@ -143,6 +143,18 @@ chmod a+x appimagetool-x86_64.AppImage
 ARCH=$(arch)
 DATE=$(date +"%m%d%Y")
 
-APPIMAGEFILENAME="<%= name %>-git$DATE-$ARCH.AppImage"
+APPIMAGEFILENAME="<%= name %>-no-data-git$DATE-$ARCH.AppImage"
+
+./appimagetool-x86_64.AppImage /<%= name %>.AppDir /appimage/$APPIMAGEFILENAME
+# Artikulate has a data repo..
+git clone https://github.com/KDE/artikulate-data ./usr/share/artikulate
+cd /
+wget "https://github.com/probonopd/AppImageKit/releases/download/knowngood/appimagetool-x86_64.AppImage"
+chmod a+x appimagetool-x86_64.AppImage
+
+ARCH=$(arch)
+DATE=$(date +"%m%d%Y")
+
+APPIMAGEFILENAME="<%= name %>-with-data-git$DATE-$ARCH.AppImage"
 
 ./appimagetool-x86_64.AppImage /<%= name %>.AppDir /appimage/$APPIMAGEFILENAME
