@@ -52,7 +52,8 @@ rsync -aruxv --progress /opt/usr/share/ ./usr/share/
 rsync -aruxv --progress /opt/etc/ ./etc/
 rsync -aruxv --progress /opt/usr/qml/ ./qml
 cp /usr/lib/x86_64-linux-gnu/pulseaudio/*.so* ./usr/lib/
-cp -rfv /opt/usr/lib/gstreamer-1.0 ./usr/lib/
+cp -rfv /opt/usr/lib/gstreamer-1.0/* ./usr/lib/
+cp /opt/usr/lib/*gst* ./usr/lib/
 cp /opt/usr/bin/gst* ./usr/bin/
 mkdir ./lib
 cp /usr/lib/x86_64-linux-gnu/pulseaudio/*.so* ./lib/
@@ -121,12 +122,11 @@ export APPIMAGE_ORIGINAL_PATH=\$PATH
 export QML2_IMPORT_PATH=\$DIR/qml
 export QT_PLUGIN_PATH=\$DIR/plugins
 export LD_LIBRARY_PATH=\$QT_PLUGIN_PATH:\$DIR/lib:\$DIR/usr/lib
-export XDG_DATA_DIRS=\$DIR/usr/share:\$HOME/.local/share
-export XDG_DATA_HOME=\$HOME/.local/share
+export XDG_DATA_DIRS=\$DIR/usr/share:\$HOME/.local/share/<%= name %>
 export XDG_CONFIG_DIRS=\$DIR/etc/xdg:$XDG_CONFIG_DIRS
 export PATH=\$DIR/usr/bin:\$DIR/bin:$PATH
 export KDE_FORK_SLAVES=1
-export GST_PLUGIN_SCANNER=\$DIR/usr/lib/gstreamer-1.0
+export GST_PLUGIN_SCANNER=\$DIR/usr/lib
 export APPIMAGE_STARTUP_QML2_IMPORT_PATH=\$QML2_IMPORT_PATH
 export APPIMAGE_STARTUP_LD_LIBRARY_PATH=\$LD_LIBRARY_PATH
 export APPIMAGE_STARTUP_QT_PLUGIN_PATH=\$QT_PLUGIN_PATH
