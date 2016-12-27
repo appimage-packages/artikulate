@@ -78,7 +78,6 @@ packages:
   - bzr
   - doxygen
   - libsphinxbase-dev
-  - libboost-all-dev
   - sphinx-common
   - libaspell-dev
   - hspell
@@ -162,30 +161,14 @@ dependencies:
       source:
         type: bzr
         url: 'lp:libdbusmenu-qt'
-  - gstreamer:
+  - gpgme:
       build:
         buildsystem: make
         buildoptions: ''
-      depname: gstreamer-1.10.2
+      depname: gpgme
       source:
-        type: xz
-        url: 'https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-1.10.2.tar.xz'
-  - gst-plugins-base:
-      build:
-        buildsystem: make
-        buildoptions: ''
-      depname: gst-plugins-base-1.10.2
-      source:
-        type: xz
-        url: 'https://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-1.10.2.tar.xz'
-  - gst-plugins-good:
-      build:
-        buildsystem: make
-        buildoptions: ''
-      depname: gst-plugins-good-1.10.2
-      source:
-        type: xz
-        url: 'https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-1.10.2.tar.xz'
+        type: git
+        url: 'git://git.gnupg.org/gpgme.git'
   - gst-plugins-bad:
       build:
         buildsystem: make
@@ -210,19 +193,3 @@ dependencies:
       source:
         type: xz
         url: 'https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-1.10.2.tar.xz'
-  - qt-gstreamer:
-      build:
-        buildsystem: cmake
-        buildoptions: '-DCMAKE_INSTALL_PREFIX:PATH=/opt/usr -DQT_VERSION=5 -DCMAKE_REQUIRED_INCLUDES=/opt/usr/include/gstreamer-1.0/ -DQTGSTREAMER_STATIC=OFF -DQTGSTREAMER_EXAMPLES=OFF'
-      depname: qt-gstreamer-1.2.0
-      source:
-        type: xz
-        url: 'https://gstreamer.freedesktop.org/src/qt-gstreamer/qt-gstreamer-1.2.0.tar.xz'
-  - gpgme:
-      build:
-        buildsystem: make
-        buildoptions: ''
-      depname: gpgme
-      source:
-        type: git
-        url: 'git://git.gnupg.org/gpgme.git'
