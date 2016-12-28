@@ -92,6 +92,7 @@ packages:
   - bzip2
   - shared-mime-info
   - libcdio-cdda1
+  - sqlite3
   #app specifc
 frameworks:
   build_kf5: true
