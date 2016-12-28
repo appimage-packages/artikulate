@@ -151,7 +151,8 @@ APPIMAGEFILENAME="<%= name %>-no-data-git$DATE-$ARCH.AppImage"
 
 ./appimagetool-x86_64.AppImage /<%= name %>.AppDir /appimage/$APPIMAGEFILENAME
 # Artikulate has a data repo..
-git clone https://github.com/KDE/artikulate-data ./usr/share/
+cd ./usr/share/
+git clone https://github.com/KDE/artikulate-data .
 cd /
 wget "https://github.com/probonopd/AppImageKit/releases/download/knowngood/appimagetool-x86_64.AppImage"
 chmod a+x appimagetool-x86_64.AppImage
