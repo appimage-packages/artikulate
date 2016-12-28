@@ -88,7 +88,8 @@ find . -name '*.a' -exec rm {} \;
 strip -g $(find usr/bin) || true
 strip -g $(find usr/lib) || true
 
-mv usr/lib/libexec/kf5/* /app/usr/bin/ || true
+mv /opt/usr/libexec/kf5/* ./usr/bin/ || true
+mv /opt/usr/libexec/gstreamer-1.0/* ./usr/bin || true
 cp -rfv /opt/usr/lib/x86_64-linux-gnu/* /opt/usr/lib/
 unset LD_LIBRARY_PATH
 ../linuxdeployqt-1-x86_64.AppImage <%= name %> -verbose=3 -bundle-non-qt-libs -qmldir=/opt/usr/qml
@@ -124,7 +125,7 @@ export QML2_IMPORT_PATH=\$DIR/qml
 export QT_PLUGIN_PATH=\$DIR/plugins
 export LD_LIBRARY_PATH=\$QT_PLUGIN_PATH:\$DIR/lib:\$DIR/usr/lib
 export XDG_DATA_DIRS=\$DIR/usr/share:\$HOME/.local/share
-export XDG_DATA_HOME=\$DIR/usr/share
+export XDG_DATA_HOME=\$HOME/.local/share
 export XDG_CONFIG_DIRS=\$DIR/etc/xdg:$XDG_CONFIG_DIRS
 export PATH=\$DIR/usr/bin:\$DIR/bin:$PATH
 export KDE_FORK_SLAVES=1
@@ -150,7 +151,7 @@ APPIMAGEFILENAME="<%= name %>-no-data-git$DATE-$ARCH.AppImage"
 
 ./appimagetool-x86_64.AppImage /<%= name %>.AppDir /appimage/$APPIMAGEFILENAME
 # Artikulate has a data repo..
-git clone https://github.com/KDE/artikulate-data ./usr/share/artikulate
+git clone https://github.com/KDE/artikulate-data ./usr/share/
 cd /
 wget "https://github.com/probonopd/AppImageKit/releases/download/knowngood/appimagetool-x86_64.AppImage"
 chmod a+x appimagetool-x86_64.AppImage
