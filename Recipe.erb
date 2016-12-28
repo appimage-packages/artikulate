@@ -124,12 +124,13 @@ export APPIMAGE_ORIGINAL_PATH=\$PATH
 export QML2_IMPORT_PATH=\$DIR/qml
 export QT_PLUGIN_PATH=\$DIR/plugins
 export LD_LIBRARY_PATH=\$QT_PLUGIN_PATH:\$DIR/lib:\$DIR/usr/lib
-export XDG_DATA_DIRS=\$DIR/usr/share:\$HOME/.local/share
+export XDG_DATA_DIRS=\$DIR/share/:\$DIR/usr/share:\$HOME/.local/share
 export XDG_DATA_HOME=\$HOME/.local/share
 export XDG_CONFIG_DIRS=\$DIR/etc/xdg:$XDG_CONFIG_DIRS
 export PATH=\$DIR/usr/bin:\$DIR/bin:$PATH
 export KDE_FORK_SLAVES=1
 export GST_PLUGIN_PATH=\$DIR/lib
+export GST_PLUGIN_SCANNER=\$DIR/bin
 export APPIMAGE_STARTUP_QML2_IMPORT_PATH=\$QML2_IMPORT_PATH
 export APPIMAGE_STARTUP_LD_LIBRARY_PATH=\$LD_LIBRARY_PATH
 export APPIMAGE_STARTUP_QT_PLUGIN_PATH=\$QT_PLUGIN_PATH
@@ -151,8 +152,8 @@ APPIMAGEFILENAME="<%= name %>-no-data-git$DATE-$ARCH.AppImage"
 
 ./appimagetool-x86_64.AppImage /<%= name %>.AppDir /appimage/$APPIMAGEFILENAME
 # Artikulate has a data repo..
-git clone https://github.com/KDE/artikulate-data
-mv artikulate-data/* ./usr/share/
+git clone https://github.com/KDE/artikulate-data ./usr/share/artikulate
+
 cd /
 wget "https://github.com/probonopd/AppImageKit/releases/download/knowngood/appimagetool-x86_64.AppImage"
 chmod a+x appimagetool-x86_64.AppImage
