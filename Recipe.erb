@@ -113,7 +113,7 @@ cat > AppRun << EOF
 DIR="\`dirname \"\$0\"\`"
 DIR="\`( cd \"\$DIR\" && pwd )\`"
 export APPDIR=\$DIR
-unset XDG_DATA_DIRS
+
 export LD_PRELOAD=\$DIR/exec_wrapper.so
 
 export APPIMAGE_ORIGINAL_QML2_IMPORT_PATH=\$QML2_IMPORT_PATH
@@ -124,7 +124,7 @@ export APPIMAGE_ORIGINAL_PATH=\$PATH
 export QML2_IMPORT_PATH=\$DIR/qml
 export QT_PLUGIN_PATH=\$DIR/plugins
 export LD_LIBRARY_PATH=\$QT_PLUGIN_PATH:\$DIR/lib:\$DIR/usr/lib
-export XDG_DATA_DIRS=\$DIR/share/:\$DIR/usr/share:\$HOME/.local/share:\$XDG_DATA_DIRS
+export XDG_DATA_DIRS=\$DIR/usr/share:\$XDG_DATA_DIRS
 export XDG_DATA_HOME=\$HOME/.local/share
 export XDG_CONFIG_DIRS=\$DIR/etc/xdg:\$XDG_CONFIG_DIRS
 export PATH=\$DIR/usr/bin:\$DIR/bin:\$PATH
