@@ -132,6 +132,7 @@ frameworks:
     - kio
     - knewstuff
     - breeze-icons
+    - kactivities
     - plasma-framework
 type: git
 url: http://anongit.kde.org/artikulate
