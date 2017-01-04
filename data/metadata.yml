@@ -88,6 +88,7 @@ packages:
   - media-player-info
   - libcdio-cdda-dev
   - libpolkit-agent-1-dev
+  - libpolkit-backend-1-dev
   - libfam-dev
   - bzip2
   - shared-mime-info
