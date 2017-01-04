@@ -113,11 +113,11 @@ export XDG_CONFIG_DIRS="${HERE}"/etc/xdg:"${XDG_CONFIG_DIRS}"
 export KDE_FORK_SLAVES=1
 export GST_PLUGIN_PATH="${HERE}"/lib
 export GST_PLUGIN_SCANNER="${HERE}"/bin
-
-<%= name %>  $@
+EXEC=$(grep -e '^Exec=.*' "${HERE}"/*.desktop | head -n 1 | cut -d "=" -f 2 | cut -d " " -f 1)
+exec "${EXEC}" $@
 EOF
 chmod +x AppRun
-mv <%= name %> ./usr/bin/
+#mv <%= name %> ./usr/bin/
 cp <%= name %>.desktop ./usr/share/applications/
 cd /
 wget "https://github.com/probonopd/AppImageKit/releases/download/knowngood/appimagetool-x86_64.AppImage"
