@@ -114,7 +114,7 @@ export KDE_FORK_SLAVES=1
 export GST_PLUGIN_PATH="${HERE}"/lib
 export GST_PLUGIN_SCANNER="${HERE}"/bin
 EXEC=$(grep -e '^Exec=.*' "${HERE}"/*.desktop | head -n 1 | cut -d "=" -f 2 | cut -d " " -f 1)
-exec "${EXEC}" $@
+"${EXEC}" $@
 EOF
 chmod +x AppRun
 #mv <%= name %> ./usr/bin/
