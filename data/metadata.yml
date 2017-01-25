@@ -134,6 +134,7 @@ frameworks:
     - knewstuff
     - breeze-icons
     - kactivities
+    - kdeclarative
     - plasma-framework
     - breeze
 type: git
