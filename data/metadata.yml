@@ -133,6 +133,7 @@ frameworks:
     - knewstuff
     - breeze-icons
     - plasma-framework
+    - breeze
 type: git
 url: http://anongit.kde.org/artikulate
 buildsystem: cmake
