@@ -44,6 +44,7 @@ frameworks:
     - kpackage
     - kdeclarative
     - plasma-framework
+    - kdecoration
     - breeze
 type: git
 url: http://anongit.kde.org/artikulate
