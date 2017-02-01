@@ -1,4 +1,5 @@
 name: artikulate
+binary: artikulate
 packages:
   - build-essential
   #app specifc
