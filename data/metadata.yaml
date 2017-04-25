@@ -1,0 +1,42 @@
+name: artikulate
+binary: artikulate
+packages:
+  - zsync
+  #app specifc
+build_kf5: true
+frameworks:
+  - extra-cmake-modules
+  - kguiaddons
+  - kconfigwidgets
+  - kdoctools
+  - attica
+  - kcompletion
+  - kiconthemes
+  - kbookmarks
+  - kjobwidgets
+  - solid
+  - kio
+  - kitemviews
+  - sonnet
+  - ktextwidgets
+  - kglobalaccel
+  - kwindowsystem
+  - kxmlgui
+  - kconfig
+  - karchive
+  - ki18n
+  - kcrash
+  - kcodecs
+  - kwidgetsaddons
+  - kcoreaddons
+  - polkit-qt-1
+  - kauth
+  - kdbusaddons
+  - kservice
+  - knewstuff
+deps_on_kf5: ''
+type: git
+url: http://anongit.kde.org/artikulate
+buildsystem: cmake
+buildoptions: '-DCMAKE_INSTALL_PREFIX:PATH=/app.Dir/usr -DKDE_INSTALL_SYSCONFDIR=/app.Dir/etc -DBUILD_TESTING=OFF'
+dependencies: false

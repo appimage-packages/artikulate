@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
-# 
+#
 # Copyright (C) 2016 Scarlett Clark <sgclark@kde.org>
 # Copyright (C) 2015-2016 Harald Sitter <sitter@kde.org>
 #
@@ -15,16 +15,45 @@
 # This library is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# Lesser General Public License for more details.
+# Lesser General Public License fo-r more details.
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
-require_relative 'generate_recipe.rb'
-require_relative 'builddocker.rb'
+require_relative 'appimage-template/libs/builddocker.rb'
 require 'fileutils'
+require 'pty'
 
+if RUBY_VERSION =~ /1.9/ # assuming you're running Ruby ~1.9
+  Encoding.default_external = Encoding::UTF_8
+  Encoding.default_internal = Encoding::UTF_8
+end
+setup_path = `pwd`
+p setup_path
+project = 'artikulate'
 builder = CI.new
-builder.run = [CI::Build.new()]
-builder.cmd = %w[bash -ex /in/Recipe]
-builder.create_container
+unless Dir.exist?('app')
+  Dir.mkdir('app')
+end
+unless Dir.exist?('appimage')
+  Dir.mkdir('appimage')
+end
+unless Dir.exist?('out')
+  Dir.mkdir('out')
+end
+builder.run = [CI::Build.new(project)]
+builder.cmd = %w[bash -c /in/setup.sh]
+builder.create_container(project)
+# begin
+#   PTY.spawn( cmd ) do |stdout, stdin, pid|
+#     begin
+#       # Do stuff with the output here. Just printing to show it works
+#       stdout.each { |line| print line }
+#     rescue Errno::EIO
+#       puts "Errno:EIO error, but this probably just means " +
+#             "that the process has finished giving output"
+#     end
+#   end
+# rescue PTY::ChildExited
+#   puts "The child process exited!"
+# end
