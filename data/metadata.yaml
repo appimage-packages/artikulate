@@ -5,36 +5,47 @@ packages:
   #app specifc
 build_kf5: true
 frameworks:
-  - extra-cmake-modules
-  - kguiaddons
-  - kauth
-  - kconfigwidgets
-  - kdoctools
-  - attica
-  - kcompletion
-  - kiconthemes
-  - kbookmarks
-  - kjobwidgets
-  - solid
-  - kio
-  - kitemviews
-  - sonnet
-  - ktextwidgets
-  - kglobalaccel
-  - kwindowsystem
-  - kxmlgui
-  - kconfig
-  - karchive
-  - ki18n
-  - kcrash
-  - kcodecs
-  - kwidgetsaddons
-  - kcoreaddons
-  - polkit-qt-1
-  - kdbusaddons
-  - kservice
-  - knewstuff
-  - breeze-icons
+    - extra-cmake-modules
+    - kcoreaddons
+    - ki18n
+    - kitemviews
+    - kconfig
+    - polkit-qt-1
+    - kauth
+    - kcodecs
+    - karchive
+    - kdoctools
+    - kguiaddons
+    - kwidgetsaddons
+    - kconfigwidgets
+    - kiconthemes
+    - kcompletion
+    - kwindowsystem
+    - kcrash
+    - kdbusaddons
+    - kservice
+    - sonnet
+    - ktextwidgets
+    - kglobalaccel
+    - attica
+    - kxmlgui
+    - solid
+    - kbookmarks
+    - kjobwidgets
+    - phonon
+    - phonon-gstreamer
+    - knotifications
+    - gpgmepp
+    - kwallet
+    - kio
+    - knewstuff
+    - breeze-icons
+    - kactivities
+    - kpackage
+    - kdeclarative
+    - plasma-framework
+    - kdecoration
+    - breeze
 deps_on_kf5: false
 kde_deps:
   - breeze
