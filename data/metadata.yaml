@@ -7,6 +7,7 @@ build_kf5: true
 frameworks:
   - extra-cmake-modules
   - kguiaddons
+  - kauth
   - kconfigwidgets
   - kdoctools
   - attica
@@ -30,7 +31,6 @@ frameworks:
   - kwidgetsaddons
   - kcoreaddons
   - polkit-qt-1
-  - kauth
   - kdbusaddons
   - kservice
   - knewstuff
