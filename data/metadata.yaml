@@ -34,7 +34,10 @@ frameworks:
   - kdbusaddons
   - kservice
   - knewstuff
-deps_on_kf5: ''
+  - breeze-icons
+deps_on_kf5: false
+kde_deps:
+  - breeze
 type: git
 url: http://anongit.kde.org/artikulate
 buildsystem: cmake
