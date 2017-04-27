@@ -39,7 +39,7 @@ update-mime-database ./usr/share/mime
 mkdir -p ./plugins; cp -r /opt/usr/plugins/{bearer,generic} $_
 # Bring in kf5 plugins
 mv /opt/usr/plugins/kf5/* ./plugins/ || true
-
+mv /app.Dir/usr/lib/x86_64-linux-gnu/plugins/artikulate/libsound/* ./plugins/
 #move arch libs into same dir as rest
 mv /opt/usr/lib/x86_64-linux-gnu/pkgconfig/* /opt/usr/lib/pkgconfig/
 rmdir /opt/usr/lib/x86_64-linux-gnu/pkgconfig
@@ -55,7 +55,6 @@ rm -rfv /opt/usr/lib/gstreamer-1.0/include
 cp /opt/usr/lib/gstreamer-1.0/* ./lib/
 cp /opt/usr/lib/pulseaudio/* ./lib/
 mv /opt/usr/libexec/gstreamer-1.0/* ./usr/bin || true
-mv /app.Dir/usr/lib/x86_64-linux-gnu/plugins/artikulate/libsound/* ./plugins/
 
 rsync -aruxv --progress /opt/usr/resources/ ./usr/bin/
 rsync -aruxv --progress /opt/usr/translations/ ./usr/bin/
