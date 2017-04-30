@@ -39,7 +39,6 @@ update-mime-database ./usr/share/mime
 mkdir -p ./plugins; cp -r /opt/usr/plugins/{bearer,generic} $_
 # Bring in kf5 plugins
 mv /opt/usr/plugins/kf5/* ./plugins/ || true
-mv /app.Dir/usr/lib/x86_64-linux-gnu/plugins/artikulate/* ./plugins/
 mv /app.Dir/usr/lib/x86_64-linux-gnu/plugins/* ./plugins/
 rmdir /app.Dir/usr/lib/x86_64-linux-gnu/plugins
 
