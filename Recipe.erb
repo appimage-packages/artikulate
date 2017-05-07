@@ -25,10 +25,6 @@ wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./func
 rm -f functions.sh
 
 cd /app.Dir
-#Move binary/desktop/icon into AppDir
-mv /app.Dir/usr/bin/<%= binary %> .
-mv /app.Dir/usr/share/applications/org.kde.<%= binary %>.desktop <%= binary %>.desktop
-cp /app.Dir/usr/share/icons/hicolor/48x48/apps/*<%= name %>* .
 
 cp /etc/mime.types ./etc/
 
@@ -36,11 +32,9 @@ cp -rfv /usr/share/mime ./usr/share/
 update-mime-database ./usr/share/mime
 
 # Run appimage once with QT_DEBUG_PLUGINS=1 to add missing ( linuxdeployqt should install correctly)
-mkdir -p ./plugins; cp -r /opt/usr/plugins/{platforms,bearer,generic,wayland*} $_
+mkdir -p ./plugins; cp -r /opt/usr/plugins/{bearer,generic} $_
 # Bring in kf5 plugins
 mv /opt/usr/plugins/kf5/* ./plugins/ || true
-mv /app.Dir/usr/lib/x86_64-linux-gnu/plugins/* ./plugins/
-rmdir /app.Dir/usr/lib/x86_64-linux-gnu/plugins
 
 #move arch libs into same dir as rest
 mv /opt/usr/lib/x86_64-linux-gnu/pkgconfig/* /opt/usr/lib/pkgconfig/
@@ -48,29 +42,37 @@ rmdir /opt/usr/lib/x86_64-linux-gnu/pkgconfig
 mv /opt/usr/lib/x86_64-linux-gnu/cmake/* /opt/usr/lib/cmake/
 rmdir /opt/usr/lib/x86_64-linux-gnu/cmake
 mv /opt/usr/lib/x86_64-linux-gnu/* /opt/usr/lib/
-cp /app.Dir/usr/lib/x86_64-linux-gnu/* /opt/usr/lib/
-mkdir ./lib
-cp /app.Dir/usr/lib/x86_64-linux-gnu/* ./lib/
 
+mkdir ./lib
 #Uncomment for sound
 cp -rfv /opt/usr/lib/qt5/plugins/phonon4qt5_backend  ./plugins/
 cp /opt/usr/bin/gst* ./usr/bin/
 rm -rfv /opt/usr/lib/gstreamer-1.0/include
 cp /opt/usr/lib/gstreamer-1.0/* ./lib/
-cp /opt/usr/lib/pulseaudio/* ./lib/
+cp /opt/usr/lib/pulseaudio/*.so* ./lib/
 mv /opt/usr/libexec/gstreamer-1.0/* ./usr/bin || true
 
 rsync -aruxv --progress /opt/usr/resources/ ./usr/bin/
 rsync -aruxv --progress /opt/usr/translations/ ./usr/bin/
-
+mv /app.Dir/lib/* /opt/usr/lib/
 mv /opt/usr/libexec/Qt* ./usr/bin/ || true
 
+cd /
+wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
+chmod +x linuxdeployqt-continuous-x86_64.AppImage
+./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract
+mkdir appimagetool ; cd appimagetool
+../squashfs-root/usr/bin/appimagetool --appimage-extract
+cp -Rf squashfs-root/usr/bin/ ../squashfs-root/usr/
+cd ..
+rm -rf appimagetool/squashfs-root/{linuxdeployqt.svg,linuxdeployqt.desktop,AppRun,.DirIcon}
+mv squashfs-root/ linuxdeployqt
+# Call it with linuxdeployqt/usr/bin/linuxdeployqt ...
 unset LD_LIBRARY_PATH
-~/./linuxdeployqt-1-x86_64.AppImage <%= name %> -verbose=3 -bundle-non-qt-libs -qmldir=/opt/usr/qml
+linuxdeployqt/usr/bin/linuxdeployqt /app.Dir/usr/share/applications/org.kde.<%= binary %>.desktop -verbose=3 -bundle-non-qt-libs -qmldir=/opt/usr/qml
 
-patch_usr
 glibc_needed
-#delete_blacklisted
+cd /app.Dir
 #Cleanup
 # We don't bundle the developer stuff
 rm -rf ./usr/include || true
@@ -102,12 +104,11 @@ rm -rf ./usr/share/gnupg || true
 rm -rf ./usr/share/gobject-introspection-1.0 || true
 rm -rf ./usr/share/util-macros || true
 find . -name '*.a' -exec rm {} \;
-strip -g $(find . -type f -exec) || true
+find . -type f -executable -exec strip {} \;
 find . -type f -exec file {} \; | grep "not stripped"
 #Add back libkrb5
 cp /usr/lib/x86_64-linux-gnu/libkrb5* ./lib/
-cp /usr/lib/x86_64-linux-gnu/libk5crypto* ./lib/
-get_desktopintegration <%= name %>
+
 cd /source/
 rm -rfv appimage-exec-wrapper || true
 git clone git://anongit.kde.org/scratch/brauch/appimage-exec-wrapper
@@ -129,30 +130,27 @@ export QT_PLUGIN_PATH=\$HERE/plugins
 export GRANTLEE_PLUGIN_PATH=\$HERE/plugins
 export PATH=\$HERE/usr/bin/:\$HERE/usr/sbin/:\$HERE/usr/games/:\$HERE/bin/:\$HERE/sbin/:\$PATH
 export LD_LIBRARY_PATH=\$HERE/usr/lib/:\$HERE/usr/lib/x86_64-linux-gnu/:\$HERE/usr/lib64/:\$HERE/lib/:\$HERE/lib/x86_64-linux-gnu/:\$HERE/lib64/:\$LD_LIBRARY_PATH
-export XDG_DATA_DIRS=\$HERE/usr/share:\$HOME/.local/share:\$HERE/share:/usr/local/share/:/usr/share:\$XDG_DATA_DIRS
+export XDG_DATA_DIRS=\$HERE/usr/share:\$HOME/.local/share:\$HERE/share:/usr/local/share/:/usr/share:$XDG_DATA_DIRS
 export XDG_DATA_HOME=\$HOME/.local/share
 export XDG_CONFIG_DIRS=\$HERE/.config:\$HERE/etc/xdg:\$XDG_CONFIG_DIRS
 export KDE_FORK_SLAVES=1
 export KF5_LIBEXEC_DIR=\$HERE/usr/bin
 export GST_PLUGIN_PATH=\$HERE/lib
-export GST_PLUGIN_SCANNER=\$HERE/usr/bin
+export GST_PLUGIN_SCANNER=\$HERE/bin
+export QT_STYLE_OVERRIDE=
 
 <%= binary %> $@
 
 EOF
 chmod +x AppRun
-mv <%= binary %> ./usr/bin/
-cp <%= binary %>.desktop ./usr/share/applications/
+
 cd ~
 
 
 #Appstream support for appimagetool
 rm -rfv /source/*
 
-git clone https://github.com/KDE/artikulate-data
-mv artikulate-data/* /app.Dir/usr/share/artikulate/
-mv /app.Dir/usr/share/artikulate/skeletons .
-mv /app.Dir/usr/share/artikulate/courses .
+
 
 #Re set LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/opt/usr/lib:/opt/usr/lib/x86_64-linux-gnu:/usr/lib:/usr/lib64:/lib
