@@ -24,8 +24,8 @@ node('linux') {
    def WORKSPACE = pwd()
    currentBuild.result = "SUCCESS"
    properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')), \
-   [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/appimage-packages/changeme/'], pipelineTriggers([cron('H H(0-2) * * *'), [$class: 'GitHubPushTrigger'], pollSCM('H/15 * * * *')])])
-   withEnv(['PROJECT_NAME=changeme',
+   [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/appimage-packages/artikulate/'], pipelineTriggers([cron('H H(0-2) * * *'), [$class: 'GitHubPushTrigger'], pollSCM('H/15 * * * *')])])
+   withEnv(['PROJECT_NAME=artikulate',
                  'DOCKER_IMAGE=sgclark/trusty-qt59',
                  'KF5=true']) {
                    try {
@@ -37,7 +37,7 @@ node('linux') {
                         extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'tooling']], submoduleCfg: [], \
                         userRemoteConfigs: [[url: 'https://github.com/blue-systems/pangea-tooling']]]
                         checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, \
-                        extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'changeme']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://anongit.kde.org/changeme']]]
+                        extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'artikulate']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://anongit.kde.org/artikulate']]]
                     }
                     stage( 'Setup' ) {
                        sh 'echo $PATH'
