@@ -25,15 +25,19 @@ wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./func
 rm -f functions.sh
 
 cd /app.Dir
-
+if [ ! -d "./etc" ]; then
+  mkdir ./etc
+fi
 cp /etc/mime.types ./etc/
 
 cp -rfv /usr/share/mime ./usr/share/
 update-mime-database ./usr/share/mime
 
 # Run appimage once with QT_DEBUG_PLUGINS=1 to add missing ( linuxdeployqt should install correctly)
-mkdir -p ./plugins; cp -r /opt/usr/plugins/{bearer,generic} $_
-# Bring in kf5 plugins
+if [ ! -d "./plugins" ]; then
+  mkdir ./plugins
+fi
+cp -r /opt/usr/plugins/{platforms,bearer,generic,wayland*} ./plugins/
 mv /opt/usr/plugins/kf5/* ./plugins/ || true
 
 #move arch libs into same dir as rest
@@ -42,8 +46,9 @@ rmdir /opt/usr/lib/x86_64-linux-gnu/pkgconfig
 mv /opt/usr/lib/x86_64-linux-gnu/cmake/* /opt/usr/lib/cmake/
 rmdir /opt/usr/lib/x86_64-linux-gnu/cmake
 mv /opt/usr/lib/x86_64-linux-gnu/* /opt/usr/lib/
-
-mkdir ./lib
+if [ ! -d "./lib" ]; then
+  mkdir ./lib
+fi
 #Uncomment for sound
 cp -rfv /opt/usr/lib/qt5/plugins/phonon4qt5_backend  ./plugins/
 cp /opt/usr/bin/gst* ./usr/bin/
@@ -55,6 +60,8 @@ mv /opt/usr/libexec/gstreamer-1.0/* ./usr/bin || true
 rsync -aruxv --progress /opt/usr/resources/ ./usr/bin/
 rsync -aruxv --progress /opt/usr/translations/ ./usr/bin/
 mv /app.Dir/lib/* /opt/usr/lib/ || true
+mv /app.Dir/usr/lib/x86_64-linux-gnu/plugins/* ./plugins/ || true
+rmdir /app.Dir/usr/lib/x86_64-linux-gnu/plugins || true
 mv /app.Dir/usr/lib/x86_64-linux-gnu/* /opt/usr/lib/ || true
 mv /opt/usr/libexec/Qt* ./usr/bin/ || true
 
@@ -95,7 +102,6 @@ rm -rf ./usr/share/man || true
 rm -rf ./usr/share/doc/ECM || true
 rm -rf ./usr/share/doc/libdbusmenu-qt5-doc || true
 rm -rf ./usr/share/gtk-doc || true
-rm -rf ./usr/share/wallpapers || true
 rm -rf ./usr/share/aclocal || true
 rm -rf ./usr/share/bash-completion || true
 rm -rf ./usr/share/common-lisp || true
@@ -152,8 +158,7 @@ export XDG_CONFIG_DIRS=\$HERE/.config:\$HERE/etc/xdg:\$XDG_CONFIG_DIRS
 export KDE_FORK_SLAVES=1
 export KF5_LIBEXEC_DIR=\$HERE/usr/bin
 export GST_PLUGIN_PATH=\$HERE/lib
-export GST_PLUGIN_SCANNER=\$HERE/bin
-export QT_STYLE_OVERRIDE=
+export GST_PLUGIN_SCANNER=\$HERE/usr/bin
 
 <%= binary %> $@
 
@@ -161,7 +166,10 @@ EOF
 chmod +x AppRun
 
 cd ~
-
+git clone https://github.com/KDE/artikulate-data
+mv artikulate-data/* /app.Dir/usr/share/artikulate/
+mv /app.Dir/usr/share/artikulate/skeletons .
+mv /app.Dir/usr/share/artikulate/courses .
 
 #Appstream support for appimagetool
 rm -rfv /source/*
