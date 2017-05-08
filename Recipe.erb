@@ -59,6 +59,7 @@ mv /app.Dir/usr/lib/x86_64-linux-gnu/* /opt/usr/lib/ || true
 mv /opt/usr/libexec/Qt* ./usr/bin/ || true
 
 cd /
+/bin/bash -x /in/appstream.sh
 wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
 chmod +x linuxdeployqt-continuous-x86_64.AppImage
 ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract
