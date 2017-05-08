@@ -3,50 +3,8 @@ binary: artikulate
 packages:
   - zsync
   #app specifc
-build_kf5: true
-frameworks:
-    - extra-cmake-modules
-    - kcoreaddons
-    - ki18n
-    - kitemviews
-    - kconfig
-    - polkit-qt-1
-    - kauth
-    - kcodecs
-    - karchive
-    - kdoctools
-    - kguiaddons
-    - kwidgetsaddons
-    - kconfigwidgets
-    - kiconthemes
-    - kcompletion
-    - kwindowsystem
-    - kcrash
-    - kdbusaddons
-    - kservice
-    - sonnet
-    - ktextwidgets
-    - kglobalaccel
-    - attica
-    - kxmlgui
-    - solid
-    - kbookmarks
-    - kjobwidgets
-    - phonon
-    - phonon-gstreamer
-    - knotifications
-    - gpgmepp
-    - kwallet
-    - kio
-    - knewstuff
-    - breeze-icons
-    - kactivities
-    - kpackage
-    - kdeclarative
-    - plasma-framework
-    - kdecoration
-    - breeze
-    - kwayland
+build_kf5: false
+frameworks: false
 deps_on_kf5: false
 kde_deps:
   - breeze
