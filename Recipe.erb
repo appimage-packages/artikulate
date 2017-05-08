@@ -53,9 +53,9 @@ fi
 cp -rfv /opt/usr/lib/qt5/plugins/phonon4qt5_backend  ./plugins/
 cp /opt/usr/bin/gst* ./usr/bin/
 rm -rfv /opt/usr/lib/gstreamer-1.0/include
-cp /opt/usr/lib/gstreamer-1.0/* ./lib/
+mv /opt/usr/lib/gstreamer-1.0 ./lib/
 cp /opt/usr/lib/pulseaudio/*.so* ./lib/
-mv /opt/usr/libexec/gstreamer-1.0/* ./usr/bin || true
+mv /opt/usr/libexec/gstreamer-1.0/* ./usr/bin/ || true
 
 rsync -aruxv --progress /opt/usr/resources/ ./usr/bin/
 rsync -aruxv --progress /opt/usr/translations/ ./usr/bin/
